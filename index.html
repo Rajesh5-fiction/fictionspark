@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FictionSpark — Ignite Your Ideas</title>
+  <meta name="description" content="FictionSpark — Student Projects & Internships. Projects, demos, apply for internships, contact via WhatsApp." />
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#ff6b6b; --glass:rgba(255,255,255,0.04);
+      --light-bg:#f7fbff; --light-card:#ffffff; --light-text:#0b1220;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;
+      background:linear-gradient(180deg,#071022 0%, #0f1724 100%); color:#e6eef8; -webkit-font-smoothing:antialiased;
+      padding:24px;
+    }
+    .container{max-width:1100px;margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#ff9a9e,#fecfef);display:flex;align-items:center;justify-content:center;font-weight:700;color:#082032}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:0;color:var(--muted)}
+
+    .controls{display:flex;gap:12px;align-items:center}
+    .btn{background:var(--accent);border:none;padding:10px 14px;border-radius:10px;color:#081524;font-weight:600;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#e6eef8}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;margin:28px 0;align-items:center}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); padding:28px;border-radius:14px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .hero h2{font-size:28px;margin:0 0 12px}
+    .badges{display:flex;gap:10px;margin-top:12px}
+    .badge{background:var(--glass);padding:8px 10px;border-radius:8px;color:var(--muted);font-weight:600}
+
+    /* search/filter */
+    .search-row{display:flex;gap:12px;align-items:center;margin:18px 0}
+    .input{padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit;min-width:0}
+    .select{padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit}
+
+    /* projects grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+    .card{background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .card h3{margin:0 0 8px;font-size:16px}
+    .stack{display:flex;flex-wrap:wrap;gap:6px}
+    .chip{background:rgba(255,255,255,0.04);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--muted)}
+    .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+    .price{font-weight:700}
+
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal{background:linear-gradient(180deg,#07152a,#081a2f);padding:20px;border-radius:12px;max-width:760px;width:100%;color:#e7f2ff}
+
+    /* internship */
+    .intern-card{background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);padding:16px;border-radius:10px}
+    .syllabus{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+    .week{background:rgba(255,255,255,0.02);padding:8px;border-radius:8px}
+
+    footer{margin-top:28px;color:var(--muted);text-align:center}
+
+    /* responsiveness */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr}
+      .hero-card{order:2}
+    }
+
+    /* light theme classes */
+    .light body{background:var(--light-bg);color:var(--light-text)}
+    .light .card,.light .modal{background:var(--light-card);color:var(--light-text);box-shadow:0 8px 24px rgba(2,6,23,0.06)}
+    .light .logo{color:#fff}
+    .light .badge{background:#f0f6ff;color:#0b1220}
+
+    /* small helpers */
+    .muted{color:var(--muted);font-size:13px}
+    .flex{display:flex;gap:8px;align-items:center}
+    .right{margin-left:auto}
+    .tag{background:rgba(0,0,0,0.25);padding:6px 8px;border-radius:8px;font-size:12px}
+
+    /* WhatsApp button */
+    .whatsapp{position:fixed;right:18px;bottom:18px;background:#25d366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#042018;font-weight:800;box-shadow:0 8px 20px rgba(2,6,23,0.4);cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">FS</div>
+        <div>
+          <h1>FictionSpark</h1>
+          <p class="lead">Ignite your ideas — Projects • Internships • Skills</p>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="ctaProjects">View Projects</button>
+        <button class="btn ghost" id="ctaIntern">Join Internship</button>
+        <button class="btn ghost" id="themeToggle">🌙</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-card">
+        <h2>Build real projects. Earn certificates. Level up your career.</h2>
+        <p class="muted">FictionSpark helps BCA students complete college projects and internships with professional guidance, demo code, and submission-ready deliverables.</p>
+
+        <div class="badges">
+          <div class="badge">✅ Ready-to-submit Projects</div>
+          <div class="badge">🎓 Internship Certificates</div>
+          <div class="badge">🧑‍🏫 Mentorship</div>
+        </div>
+
+        <div style="margin-top:16px" class="search-row">
+          <input id="search" class="input" placeholder="Search projects, e.g. face recognition" />
+          <select id="category" class="select">
+            <option value="all">All Categories</option>
+            <option value="web">Web</option>
+            <option value="ai">AI / ML</option>
+            <option value="mobile">Mobile</option>
+            <option value="iot">IoT</option>
+          </select>
+          <button class="btn" id="clearFilters">Clear</button>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:10px;align-items:center">
+          <div class="muted">Featured Projects</div>
+          <div class="right muted">100+ projects • 200+ interns</div>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="intern-card">
+            <h3 style="margin:0">Internship — 1 Month (Hands-on)</h3>
+            <p class="muted">Live project + mentorship + certificate</p>
+            <div class="syllabus">
+              <div class="week"><strong>Week 1</strong><div class="muted">HTML, CSS, JS</div></div>
+              <div class="week"><strong>Week 2</strong><div class="muted">Backend Basics (Python/Node)</div></div>
+              <div class="week"><strong>Week 3</strong><div class="muted">Project Build</div></div>
+              <div class="week"><strong>Week 4</strong><div class="muted">Testing & Submission</div></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button class="btn" id="applyNow">Apply Now</button>
+              <button class="btn ghost" id="syllabusDownload">Download Syllabus</button>
+            </div>
+          </div>
+
+          <div class="intern-card">
+            <h4 style="margin:0">Why FictionSpark?</h4>
+            <ul class="muted">
+              <li>Project code with documentation</li>
+              <li>Viva preparation & slides</li>
+              <li>Certificate on completion</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2 style="margin:0 0 12px">Projects</h2>
+        <div class="muted">Showing <span id="count">0</span> projects</div>
+      </div>
+
+      <div class="grid" id="projectsGrid"></div>
+    </section>
+
+    <footer>
+      <p>© FictionSpark • Built for students. Contact: <a href="mailto:hello@fictionspark.example">hello@fictionspark.example</a></p>
+    </footer>
+  </div>
+
+  <div class="modal-backdrop" id="modal">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div style="flex:1">
+          <h3 id="modalTitle">Project Title</h3>
+          <p id="modalDesc" class="muted">Detailed description</p>
+
+          <div style="margin-top:12px">
+            <strong>Tech Stack</strong>
+            <div id="modalStack" style="display:flex;gap:8px;margin-top:6px"></div>
+          </div>
+
+          <div style="display:flex;gap:8px;margin-top:14px;align-items:center">
+            <button class="btn" id="modalBtnSubmit">Request Project</button>
+            <button class="btn ghost" id="modalBtnClose">Close</button>
+          </div>
+        </div>
+        <div style="width:260px">
+          <div style="height:160px;background:linear-gradient(90deg,#081826,#052337);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted)">Preview</div>
+          <div style="margin-top:10px;color:var(--muted);font-size:13px">Price: <span id="modalPrice" class="price">₹0</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="whatsapp" id="waBtn" title="Chat on WhatsApp">💬</div>
+
+  <script>
+    // Sample project data
+    const projects = [
+      {id:1,title:'Face Recognition Attendance',category:'ai',desc:'Webcam-based attendance using YOLO & MobileNet. CSV logs & dashboard.',stack:['YOLOv5','MobileNetV2','Python','OpenCV'],price:2500},
+      {id:2,title:'YouTube to PPT Generator',category:'web',desc:'Downloads audio, transcribes, and auto-generates PPT slides.',stack:['Python','Whisper','pptx','Flask'],price:1800},
+      {id:3,title:'Online Shopping Portal',category:'web',desc:'Full-stack e-commerce with product pages, cart, and checkout.',stack:['HTML','CSS','JS','Postgres'],price:2200},
+      {id:4,title:'Farm Alert (IoT)',category:'iot',desc:'Sensor-driven alerts for crop monitoring with SMS notifications.',stack:['Arduino','MQTT','Python'],price:3000},
+      {id:5,title:'Chatbot for College',category:'ai',desc:'FAQ chatbot integrated with website and admin panel.',stack:['Node','Rasa','JS'],price:1500},
+      {id:6,title:'Mobile Notes App',category:'mobile',desc:'Cross-platform notes app with offline sync.',stack:['Flutter','SQLite'],price:1200}
+    ];
+
+    const grid = document.getElementById('projectsGrid');
+    const count = document.getElementById('count');
+    const search = document.getElementById('search');
+    const category = document.getElementById('category');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalStack = document.getElementById('modalStack');
+    const modalPrice = document.getElementById('modalPrice');
+
+    function render(list){
+      grid.innerHTML = '';
+      list.forEach(p=>{
+        const el = document.createElement('div'); el.className='card';
+        el.innerHTML = `
+          <h3>${p.title}</h3>
+          <div class="muted">${p.desc}</div>
+          <div style="margin-top:10px" class="stack">${p.stack.map(s=>`<div class=\"chip\">${s}</div>`).join('')}</div>
+          <div class="meta">
+            <div class="price">₹${p.price}</div>
+            <div style="display:flex;gap:8px"><button class="btn" data-id="${p.id}">View</button><button class="btn ghost" data-id-buy="${p.id}">Buy</button></div>
+          </div>
+        `;
+        grid.appendChild(el);
+      })
+      count.textContent = list.length;
+    }
+
+    render(projects);
+
+    // Search & filter
+    function filterProjects(){
+      const q = search.value.trim().toLowerCase();
+      const cat = category.value;
+      let res = projects.filter(p=>{
+        const matchQ = p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.stack.join(' ').toLowerCase().includes(q);
+        const matchCat = (cat==='all') || (p.category===cat);
+        return matchQ && matchCat;
+      });
+      render(res);
+    }
+    search.addEventListener('input', filterProjects);
+    category.addEventListener('change', filterProjects);
+    document.getElementById('clearFilters').addEventListener('click', ()=>{search.value='';category.value='all';filterProjects();});
+
+    // Modal handlers
+    grid.addEventListener('click', (e)=>{
+      const id = e.target.getAttribute('data-id');
+      const buy = e.target.getAttribute('data-id-buy');
+      if(id){
+        const p = projects.find(x=>x.id==id);
+        openModal(p);
+      }else if(buy){
+        const p = projects.find(x=>x.id==buy);
+        alert('To purchase or request this project, chat on WhatsApp or email: hello@fictionspark.example');
+      }
+    })
+
+    function openModal(p){
+      modalTitle.textContent = p.title;
+      modalDesc.textContent = p.desc;
+      modalStack.innerHTML = p.stack.map(s=>`<div class=\"chip\">${s}</div>`).join('');
+      modalPrice.textContent = '₹'+p.price;
+      modal.style.display = 'flex';
+    }
+    document.getElementById('modalBtnClose').addEventListener('click', ()=>{modal.style.display='none'});
+    document.getElementById('modalBtnSubmit').addEventListener('click', ()=>{
+      window.open('https://wa.me/9606161856?text='+encodeURIComponent('Hello FictionSpark, I am interested in the project: '+modalTitle.textContent),'_blank');
+    });
+
+    // CTA buttons
+    document.getElementById('ctaProjects').addEventListener('click', ()=>{window.scrollTo({top:document.querySelector('section').offsetTop-20,behavior:'smooth'})});
+    document.getElementById('ctaIntern').addEventListener('click', ()=>{document.getElementById('applyNow').focus();alert('To apply: open the WhatsApp chat or fill the contact form (not implemented in demo).')});
+    document.getElementById('applyNow').addEventListener('click', ()=>{window.open('https://wa.me/91XXXXXXXXXX?text='+encodeURIComponent('Hello, I want to apply for the FictionSpark internship.'),'_blank')});
+    document.getElementById('syllabusDownload').addEventListener('click', ()=>{alert('Syllabus download in demo — integrate real file on server or cloud storage.');});
+
+    // Theme toggle (simple)
+    const themeToggle = document.getElementById('themeToggle');
+    let isDark = true;
+    themeToggle.addEventListener('click', ()=>{
+      isDark = !isDark;
+      if(!isDark){document.documentElement.style.setProperty('--bg', '#f7fbff');document.body.style.background = 'linear-gradient(180deg,#ffffff,#f1f7ff)';document.body.style.color='#082032';document.querySelectorAll('.card').forEach(c=>c.style.background='#fff');themeToggle.textContent='☀️'}else{document.body.style.background='linear-gradient(180deg,#071022 0%, #0f1724 100%)';document.body.style.color='#e6eef8';document.querySelectorAll('.card').forEach(c=>c.style.background='');themeToggle.textContent='🌙'}
+    });
+
+    // WhatsApp quick chat
+    document.getElementById('waBtn').addEventListener('click', ()=>{window.open('https://wa.me/91XXXXXXXXXX?text='+encodeURIComponent('Hello FictionSpark! I want to know about projects and internships.'),'_blank')});
+
+    // keyboard accessibility: close modal on ESC
+    document.addEventListener('keydown',(e)=>{if(e.key==='Escape') modal.style.display='none'})
+  </script>
+</body>
+</html>
